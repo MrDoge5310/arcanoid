@@ -8,6 +8,8 @@ class Ball:
         self.rect.center = pos
         self.dx = 2
         self.dy = -2
+        self.max_size = 180
+        self.speed_ball = 25
 
     def update(self, screen, platform):
         self.move(screen, platform)
@@ -18,17 +20,18 @@ class Ball:
         pygame.draw.circle(screen, 'yellow', self.rect.center, self.rect.width * 0.25)
 
     def make_bigger(self):
-        self.rect.width *= 2
-        self.rect.height *= 2
+        if self.rect.width < self.max_size:
+            self.rect.width *= 2
+            self.rect.height *= 2
 
     def move(self, screen, platform):
         x, y = self.rect.center
         x += self.dx
         y += self.dy
         self.rect.center = (x, y)
-        if x - 25 < 0 or x + 25 > screen.get_width():
+        if x - self.speed_ball < 0 or x + self.speed_ball > screen.get_width():
             self.dx *= -1
-        if y - 25 < 0:
+        if y - self.speed_ball < 0:
             self.dy *= -1
 
         if self.rect.colliderect(platform.rect):

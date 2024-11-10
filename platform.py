@@ -4,7 +4,8 @@ import pygame
 class Platform:
     def __init__(self, pos):
         self.color = 'yellow'
-        self.rect = pygame.rect.Rect(0, 0, 200, 50)
+        self.width_pl = 200
+        self.rect = pygame.rect.Rect(0, 0, self.width_pl, 50)
         self.rect.center = pos
         self.step = 8
 
@@ -23,3 +24,7 @@ class Platform:
     def update(self, screen):
         self.draw(screen)
         self.move(screen)
+
+    def resize(self):
+        self.rect.width = self.width_pl
+        self.rect.centerx = self.rect.centerx
